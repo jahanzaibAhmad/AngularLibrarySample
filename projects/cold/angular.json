@@ -1,0 +1,62 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+      "cold": { // Your library project name
+        "projectType": "library",
+        "schematics": {},
+        "root": "projects/cold",
+        "sourceRoot": "projects/cold/src",
+        "prefix": "lib",
+        "architect": {
+          "build": {
+            "builder": "@angular-devkit/build-ng-packagr:build",
+            "options": {
+              "tsConfig": "projects/cold/tsconfig.lib.json",
+              "project": "projects/cold/ng-package.json",
+              "assets": [
+                "assets",
+                {
+                  "glob": "**/*",
+                  "input": "node_modules/cold/assets",
+                  "output": "/assets/"
+                }
+              ],
+            },
+            "configurations": {
+              "production": {
+                "fileReplacements": [
+                  {
+                    "replace": "projects/cold/src/environments/environment.ts",
+                    "with": "projects/cold/src/environments/environment.prod.ts"
+                  }
+                ],
+                "outputPath": "dist/cold"
+              }
+            }
+          },
+          "test": {
+            // Test configuration for the library
+          }
+        }
+      },
+      "cold-demo": { // Your demo application project name
+        "projectType": "application",
+        "schematics": {},
+        "root": "projects/cold-demo",
+        "sourceRoot": "projects/cold-demo/src",
+        "prefix": "app",
+        "architect": {
+          "build": {
+            // Build configuration for the demo application
+          },
+          "serve": {
+            // Serve configuration for the demo application
+          }
+        }
+      }
+    },
+    "defaultProject": "cold-demo" // Set your default project
+  }
+  
